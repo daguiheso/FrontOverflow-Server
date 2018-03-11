@@ -1,0 +1,27 @@
+{
+  "name": "frontoverflow-server",
+  "version": "1.0.0",
+  "description": "Backen for front-overflow",
+  "main": "index.js",
+  "scripts": {
+    "start:server": "DEBUG=front-overflow* babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daguiheso/FrontOverflow-Server.git"
+  },
+  "author": "@daguiheso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daguiheso/FrontOverflow-Server/issues"
+  },
+  "homepage": "https://github.com/daguiheso/FrontOverflow-Server#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "dependencies": {
+    "debug": "^3.1.0"
+  }
+}
