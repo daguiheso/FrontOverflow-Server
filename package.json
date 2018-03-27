@@ -4,7 +4,7 @@
   "description": "Backen for front-overflow",
   "main": "index.js",
   "scripts": {
-    "start:server": "DEBUG=front-overflow* nodemon index.js --exec babel-node"
+    "start:server": "NODE_ENV=development DEBUG=front-overflow* nodemon index.js --exec babel-node"
   },
   "repository": {
     "type": "git",
