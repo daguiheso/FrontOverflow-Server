@@ -2,10 +2,22 @@ import express from 'express'
 
 const app = express.Router()
 
+const currentUser = {
+	firstName: 'Daniel',
+	lastName: 'Hernandez',
+	email: 'daguiheso@gmail.com',
+	password: '123456'
+}
+
 function questionMiddleware(req, res, next) {
 	const { id } = req.params
 	// Obteniendo el _id solamente de cada question : es lo mismo que esto : const q = questions.find(question => question._id === +id)
 	req.question = questions.find(({ _id }) => _id === +id)
+	next()
+}
+
+function userMiddleware(req, res, next) {
+	req.user = currentUser
 	next()
 }
 
@@ -35,15 +47,10 @@ app.get('/:id', questionMiddleware, (req, res) => {
 })
 
 // POST /api/questions/
-app.post('/', (req, res) => {
+app.post('/', userMiddleware, (req, res) => {
 	const question = req.body
 	question._id = +new Date()
-	question.user = {
-		email: 'daguiheso@gmail.com',
-		password: '123456',
-		firstName: 'Daniel',
-		lastName: 'Hernández'
-	}
+	question.user = req.user
 	question.createdAt = new Date()
 	question.answers = []
 	questions.push(question)
