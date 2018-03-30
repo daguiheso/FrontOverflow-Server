@@ -2,6 +2,13 @@ import express from 'express'
 
 const app = express.Router()
 
+function questionMiddleware(req, res, next) {
+	const { id } = req.params
+	// Obteniendo el _id solamente de cada question : es lo mismo que esto : const q = questions.find(question => question._id === +id)
+	req.question = questions.find(({ _id }) => _id === +id)
+	next()
+}
+
 const question = {
 	_id: 1,
 	title: 'Como reutilizo un componente en Angular',
@@ -23,11 +30,8 @@ const questions = new Array(10).fill(question)
 app.get('/', (req, res) => res.status(200).json(questions))
 
 // GET /api/questions/:id
-app.get('/:id', (req, res) => {
-	const { id } = req.params
-	// Obteniendo el _id solamente de cada question : es lo mismo que esto : const q = questions.find(question => question._id === +id)
-	const q = questions.find(({ _id}) => _id === +id)
-	res.status(200).json(q)
+app.get('/:id', questionMiddleware, (req, res) => {
+	res.status(200).json(req.question)
 })
 
 // POST /api/questions/
